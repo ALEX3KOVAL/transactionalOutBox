@@ -30,9 +30,6 @@ dependencies {
 
     implementation("alex3koval:eventing-contract:1.13.10") // TODO НУЖНО НАПИСАТЬ КАСТОМНЫЙ СТАРТЕР ДЛЯ РАБОТЫ С eventing
     implementation("alex3koval:eventing-impl:1.0.0") // TODO НУЖНО НАПИСАТЬ КАСТОМНЫЙ СТАРТЕР ДЛЯ РАБОТЫ С eventing
-
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
 }
 
 publishing {
@@ -57,8 +54,4 @@ publishing {
             }
         }
     }
-}
-
-tasks.test {
-    useJUnitPlatform()
 }
