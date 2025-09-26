@@ -9,7 +9,7 @@ private fun RepositoryHandler.loadGithubPackage(repo: String) {
         url = URI("https://maven.pkg.github.com/ALEX3KOVAL/$repo")
         credentials {
             username = "ALEX3KOVAL"
-            password = "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"
+            password = System.getenv("GITHUB_TOKEN")
         }
         authentication {
             create<BasicAuthentication>("basic")
