@@ -18,6 +18,11 @@ private fun RepositoryHandler.loadGithubPackage(repo: String) {
         content {
             includeGroup("alex3koval")
         }
+
+        metadataSources {
+            mavenPom()
+            artifact()
+        }
     }
 }
 

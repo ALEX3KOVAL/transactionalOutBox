@@ -28,8 +28,8 @@ dependencies {
     compileOnly("org.projectlombok:lombok:1.18.38")
     annotationProcessor("org.projectlombok:lombok:1.18.38")
 
-    implementation("alex3koval:eventing-contract:1.13.10") // TODO НУЖНО НАПИСАТЬ КАСТОМНЫЙ СТАРТЕР ДЛЯ РАБОТЫ С eventing
-    implementation("alex3koval:eventing-impl:1.0.0") // TODO НУЖНО НАПИСАТЬ КАСТОМНЫЙ СТАРТЕР ДЛЯ РАБОТЫ С eventing
+    implementation("alex3koval:eventing-contract:1.13.+") // TODO НУЖНО НАПИСАТЬ КАСТОМНЫЙ СТАРТЕР ДЛЯ РАБОТЫ С eventing
+    implementation("alex3koval:eventing-impl:1.0.+") // TODO НУЖНО НАПИСАТЬ КАСТОМНЫЙ СТАРТЕР ДЛЯ РАБОТЫ С eventing
 }
 
 publishing {
