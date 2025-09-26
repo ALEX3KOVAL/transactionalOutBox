@@ -26,7 +26,7 @@ import java.util.function.Consumer;
 @Configuration
 @RequiredArgsConstructor
 @Import(EventingConfiguration.class)
-public class CdcConfiguration {
+public class TransactionalOutBoxConfiguration {
     @Bean
     public DebeziumEngine<ChangeEvent<SourceRecord, SourceRecord>> debeziumEngine(
         @Qualifier("debeziumProperties") Properties props,
