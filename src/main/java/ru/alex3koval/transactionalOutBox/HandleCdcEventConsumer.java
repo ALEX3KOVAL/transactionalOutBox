@@ -11,7 +11,6 @@ import ru.alex3koval.eventingContract.vo.EventStatus;
 
 import java.util.AbstractMap;
 import java.util.Map;
-import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -24,40 +23,31 @@ public class HandleCdcEventConsumer implements Consumer<SourceRecord> {
     @Override
     public void accept(SourceRecord record) {
         if (record.value() instanceof Struct recordStruct) {
-            Object operation = recordStruct.get(Envelope.FieldName.OPERATION);
+            Object operation = record.key();
 
             if (operation == Envelope.Operation.READ || operation == Envelope.Operation.DELETE) {
                 return;
             }
 
-            Object recordAfterChange = recordStruct.get(Envelope.FieldName.AFTER);
+            EventStatus status = EventStatus
+                .of(Short.parseShort(recordStruct.get("status").toString()))
+                .orElseThrow();
 
-            if (recordAfterChange == null) {
+            if (!status.isCreated()) {
                 return;
             }
 
-            Struct structAfterChange = (Struct) recordAfterChange;
-
-            Optional<EventStatus> status = EventStatus
-                .of(Short.parseShort(structAfterChange.get("status").toString()));
-
-            status.orElseThrow();
-
-            if (!status.get().isCreated()) {
-                return;
-            }
-
-            Map<String, String> events = structAfterChange.schema().fields().stream()
+            Map<String, String> eventFields = recordStruct.schema().fields().stream()
                 .flatMap(field -> {
-                    Object fieldValue = structAfterChange.get(field.name());
+                    Object fieldValue = recordStruct.get(field.name());
 
                     return fieldValue != null
                         ? Stream.of(
-                            new AbstractMap.SimpleEntry<>(
-                                field.name(),
-                                fieldValue.toString()
-                            )
+                        new AbstractMap.SimpleEntry<>(
+                            field.name(),
+                            fieldValue.toString()
                         )
+                    )
                         : Stream.empty();
                 })
                 .collect(
@@ -69,7 +59,7 @@ public class HandleCdcEventConsumer implements Consumer<SourceRecord> {
 
             try {
                 EventRDTO rdto = mapper.readValue(
-                    mapper.writeValueAsString(events),
+                    mapper.writeValueAsString(eventFields),
                     EventRDTO.class
                 );
 

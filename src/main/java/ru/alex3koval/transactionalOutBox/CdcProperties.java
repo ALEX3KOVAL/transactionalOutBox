@@ -10,14 +10,16 @@ public record CdcProperties(
     String pluginName,
     String offsetStorageClass,
     String offsetStorageFileName,
+    String offsetStorageFileFolderPath,
     Long offsetFlushIntervalMillis,
-    String databaseServerName,
+    String topicPrefix,
     String dbHost,
     Integer dbPort,
     String dbUser,
     String dbPassword,
     String dbName,
-    String tableWhitelist,
+    String schemaIncludeList,
+    String tableIncludeList,
     String columnIncludeList
 ) {
 }

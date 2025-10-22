@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "ru.alex3koval"
-version = "1.0.2"
+version = "1.0.3"
 
 repositories {
     mavenCentral()
@@ -28,8 +28,8 @@ dependencies {
     compileOnly("org.projectlombok:lombok:1.18.38")
     annotationProcessor("org.projectlombok:lombok:1.18.38")
 
-    implementation("alex3koval:eventing-contract:1.13.+") // TODO НУЖНО НАПИСАТЬ КАСТОМНЫЙ СТАРТЕР ДЛЯ РАБОТЫ С eventing
-    implementation("alex3koval:eventing-impl:1.0.+") // TODO НУЖНО НАПИСАТЬ КАСТОМНЫЙ СТАРТЕР ДЛЯ РАБОТЫ С eventing
+    implementation("alex3koval:eventing-contract:latest.release")
+    implementation("alex3koval:eventing-impl:latest.release")
 }
 
 publishing {
@@ -39,7 +39,7 @@ publishing {
 
             groupId = "alex3koval"
             artifactId = "transactional-outbox"
-            version = "1.0.2"
+            version = "1.0.3"
         }
     }
 
